@@ -131,6 +131,21 @@ button {
   fill: gray;
 }
 
+#searchInput {
+  display: block;
+  width: 60%;
+  margin: 10px auto;
+  border-radius: 6px;
+  padding: 0.5rem;
+  height: 44px;
+}
+
+#search-inside {
+  font-size: larger;
+  text-align: center;
+  margin-top: 2rem;
+}
+
 /* End cart icon styles */
 
 .mission {

@@ -22,6 +22,7 @@ export default class ProductList {
 
   async init() {
     const list = await this.dataSource.getData(this.category);
+    this.products = list; // added searh feature
     this.renderList(list);
     const titleElement = document.querySelector(".title");
     if (titleElement) {
