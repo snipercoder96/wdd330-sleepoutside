@@ -14,17 +14,14 @@ async function init() {
 
   document.getElementById("searchInput").addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase();
-    console.log("query:", query);
-    console.log("products:", listing.products);
     if (query.length === 0) {
       listing.renderList(listing.products || []);
       return;
     }
     if (query.length < 3) return;
     const filtered = (listing.products || []).filter((product) =>
-      product.Name.toLowerCase().includes(query)
+      product.Name.toLowerCase().includes(query),
     );
-    console.log("filtered:", filtered);
     listing.renderList(filtered);
   });
 }
