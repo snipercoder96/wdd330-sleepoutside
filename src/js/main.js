@@ -12,15 +12,16 @@ const listing = new ProductList("tents", dataSource, element);
 async function init() {
   await listing.init();
 
-   const navbar = document.querySelector(".nav");
+  const navbar = document.querySelector(".nav");
   if (navbar) {
     const breadcrumb = document.createElement("div");
     breadcrumb.className = "breadcrumb";
     // Capitalize the category name
-    const categoryName = listing.category.charAt(0).toUpperCase() + listing.category.slice(1);
+    const categoryName =
+      listing.category.charAt(0).toUpperCase() + listing.category.slice(1);
     breadcrumb.textContent = `${categoryName} (${listing.products.length} items)`;
     navbar.insertAdjacentElement("afterend", breadcrumb);
-  } 
+  }
   document.getElementById("searchInput").addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase();
     if (query.length === 0) {
