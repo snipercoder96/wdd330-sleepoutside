@@ -146,6 +146,32 @@ button {
   cursor: pointer;
 }
 
+#checkoutForm {
+  display: flex;
+  flex-direction: column;
+
+  & input {
+    margin-bottom: 20px;
+    height: 44px;
+    padding: 0.5rem;
+    border-radius: 6px;
+    width: 60%;
+
+    &:valid {
+      border: solid 1px green;
+    }
+    &:invalid {
+      border: solid 1px red;
+    }
+  }
+
+  & button {
+    display: block;
+    width: 200px;
+    margin: auto 10px 20px 0;
+  }
+}
+
 .divider {
   border-bottom: 2px solid var(--primary-color);
 }
