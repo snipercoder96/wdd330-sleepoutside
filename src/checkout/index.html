@@ -20,52 +20,40 @@
         <h2>Review & Place your Order</h2>
       </section>
 
-      <form id="checkoutForm" method="post">
+      <form id="checkoutForm" method="post" action="./sucess.html">
         <!-- Customer Name -->
         <label for="fname">First Name</label>
-        <input type="text" id="fname" name="fname" required />
-
+        <input type="text" id="fname" name="fname" required placeholder="John" />
+      
         <label for="lname">Last Name</label>
-        <input type="text" id="lname" name="lname" required />
-
+        <input type="text" id="lname" name="lname" required placeholder="Doe" />
+      
         <!-- Address -->
         <label for="street">Street Address</label>
-        <input type="text" id="street" name="street" required />
-
+        <input type="text" id="street" name="street" required placeholder="123 Main St" />
+      
         <label for="city">City</label>
-        <input type="text" id="city" name="city" required />
-
+        <input type="text" id="city" name="city" required placeholder="New York" />
+      
         <label for="state">State</label>
-        <input type="text" id="state" name="state" required />
-
+        <input type="text" id="state" name="state" required placeholder="NY" />
+      
         <label for="zip">Zip Code</label>
-        <input type="text" id="zip" name="zip" required />
-
+        <input type="text" id="zip" name="zip" required placeholder="10001" />
+      
         <!-- Payment -->
         <label for="cardNumber">Credit Card Number</label>
-        <input
-          type="text"
-          id="cardNumber"
-          name="cardNumber"
-          required
-          placeholder="1234567891234567890"
-        />
-
+        <input type="text" id="cardNumber" name="cardNumber" required placeholder="1234 5678 9012 3456" />
+      
         <label for="expiration">Expiration Date</label>
-        <input
-          type="text"
-          id="expiration"
-          name="expiration"
-          placeholder="MM/YY"
-          required
-        />
-
+        <input type="text" id="expiration" name="expiration" placeholder="MM/YY" required />
+      
         <label for="code">Security Code</label>
-        <input type="text" id="code" name="code" required />
-
+        <input type="password" id="code" name="code" required placeholder="123" />
+      
         <input type="date" name="timestamp" id="timestamp" hidden />
         <!-- Important-->
-
+      
         <!-- Order Summary -->
         <summary id="orderSummary">
           <h3>Order Summary</h3>
@@ -79,6 +67,7 @@
         <!-- Submit -->
         <button type="submit" id="checkoutButton">Checkout</button>
       </form>
+      
     </main>
 
     <footer id="main-footer"></footer>
