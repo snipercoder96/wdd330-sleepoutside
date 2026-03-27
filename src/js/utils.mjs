@@ -62,3 +62,31 @@ export async function loadHeaderFooter() {
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
 }
+
+export default function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+
+  // Add message text and an X button
+  alert.innerHTML = `
+    <span>${message}</span>
+    <button class="close">X</button>
+  `;
+
+  alert.addEventListener("click", function (e) {
+    // Check if the click was on the X button
+    if (e.target.tagName === "BUTTON" && e.target.innerText === "X") {
+      main.removeChild(alert);
+    }
+  });
+
+  // add the alert to the top of main
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  // make sure they see the alert by scrolling to the top of the window
+  // you may not always want to do this...so default to scroll=true, but allow it to be passed in and overridden.
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+}
