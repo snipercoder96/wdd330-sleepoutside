@@ -54,7 +54,7 @@ export default class CheckoutProcess {
     this.calculateOrderTotal();
   }
 
-  async checkout(userData) {
+  async checkout(userData, basicData) {
     try {
       const response = await fetch(`${baseURL}checkout/`, {
         method: "POST",
@@ -66,9 +66,12 @@ export default class CheckoutProcess {
         throw new Error(`Server error: ${response.status}`);
       }
 
+      // Save order summary for success page BEFORE clearing cart
+      localStorage.setItem("checkout-form", JSON.stringify(basicData));
+      // Now safe to clear the cart
       localStorage.removeItem(this.key);
-      alert("Order placed successfully! Thank you for your purchase.");
-      window.location.href = "../checkout/success.html?success=true"; // redirect after success
+
+      window.location.href = "../checkout/success.html?success=true";
     } catch (err) {
       alert("There was a problem placing your order. Please try again.");
     }
@@ -82,8 +85,6 @@ export default class CheckoutProcess {
       checkoutForm.reportValidity();
 
       if (chk_status) {
-        document.getElementById("timestamp").value = new Date().toISOString();
-
         const items = JSON.parse(localStorage.getItem(this.key)) || [];
 
         if (!items.length) {
@@ -91,8 +92,10 @@ export default class CheckoutProcess {
           return;
         }
 
+        const orderDate = new Date().toISOString();
+        
         const userData = {
-          orderDate: new Date().toISOString(),
+          orderDate,
           fname: document.querySelector("#fname").value,
           lname: document.querySelector("#lname").value,
           street: document.querySelector("#street").value,
@@ -101,15 +104,15 @@ export default class CheckoutProcess {
           zip: document.querySelector("#zip").value,
           cardNumber: document.querySelector("#cardNumber").value.replace(/\D/g, ""),
           expiration: (() => {
-            const exp = document.querySelector("#expiration").value; // must be MM/YY
+            const exp = document.querySelector("#expiration").value;
             const [mm, yy] = exp.split("/");
             return `${mm}/${yy}`;
           })(),
           code: document.querySelector("#code").value,
           items: items.map(item => ({
-            Id: item.Id,
-            Name: item.Name || item.Category,
-            FinalPrice: item.FinalPrice,
+            id: item.Id,
+            name: item.Name || item.Category,
+            price: item.FinalPrice,
             quantity: item.quantity || 1
           })),
           orderTotal: this.orderTotal.toFixed(2),
@@ -117,19 +120,25 @@ export default class CheckoutProcess {
           tax: this.tax.toFixed(2)
         };
 
+    
+        
         const basicData = {
-          ...userData,
+          orderDate,
           fname: document.querySelector("#fname").value,
           lname: document.querySelector("#lname").value,
           street: document.querySelector("#street").value,
           city: document.querySelector("#city").value,
           state: document.querySelector("#state").value,
           zip: document.querySelector("#zip").value,
+          items: items.map(item => ({
+            Name: item.Name || item.Category,
+            FinalPrice: item.FinalPrice,
+            quantity: item.quantity || 1
+          })),
+          orderTotal: this.orderTotal.toFixed(2),
         };
 
-        localStorage.setItem("checkout-form", JSON.stringify(basicData));
-
-        this.checkout(userData);
+        this.checkout(userData, basicData);
       }
     });
   }
