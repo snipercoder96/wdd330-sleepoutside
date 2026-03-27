@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, alertMessage } from "./utils.mjs";
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 export default class CheckoutProcess {
@@ -63,7 +63,29 @@ export default class CheckoutProcess {
       });
 
       if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
+        let errorMessage = `Server error: ${response.status}`;
+
+        try {
+          const errorData = await response.json();
+
+          // Loop through each field error if it's an object
+          if (errorData && typeof errorData === "object") {
+            Object.entries(errorData).forEach(([field, message]) => {
+              alertMessage(`${field}: ${message}`);
+            });
+            return; // stop here after showing all errors
+          }
+
+          // If backend sends a single error field
+          if (errorData && errorData.error) {
+            errorMessage = errorData.error;
+          }
+        } catch (e) {
+          // If parsing fails, just keep the default message
+        }
+
+        alertMessage(errorMessage);
+        return;
       }
 
       // Save order summary for success page BEFORE clearing cart
