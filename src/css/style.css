@@ -126,6 +126,31 @@ nav.nav a:hover {
   margin-top: -1.3em;
 }
 
+.alert {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  align-items: center;
+  padding: 1em;
+  width: 50%;
+  background-color: var(--primary-color);
+  margin-bottom: 10px;
+
+  & span {
+    flex-grow: 1;
+    margin-left: 0.5rem;
+  }
+
+  & .close {
+    background-color: transparent;
+    color: black;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .logo--square > div {
   margin-top: -1.7em;
 }
