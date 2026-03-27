@@ -218,6 +218,20 @@ button {
   fill: gray;
 }
 
+@keyframes cartBounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2);
+  }
+}
+
+.cart-bounce {
+  animation: cartBounce 0.6s ease-in-out;
+}
+
 #searchInput {
   display: block;
   width: 60%;

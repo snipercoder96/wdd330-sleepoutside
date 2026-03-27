@@ -61,6 +61,15 @@ export async function loadHeaderFooter() {
 
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+  
+  // Set up cart animation listener
+  window.addEventListener('itemAddedToCart', () => {
+    const cartIcon = document.querySelector('.cart'); // html element (svg icon)
+    if (cartIcon) {
+      cartIcon.classList.add('cart-bounce');
+      setTimeout(() => cartIcon.classList.remove('cart-bounce'), 600);
+    }
+  });
 }
 
 export function alertMessage(message, scroll = true) {
