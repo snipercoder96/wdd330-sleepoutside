@@ -27,6 +27,9 @@ export default class ProductDetails {
             cartItems.push(this.product);
         }
         setLocalStorage("so-cart", cartItems);
+        
+        // Dispatch custom event to trigger cart animation
+        window.dispatchEvent(new CustomEvent('itemAddedToCart')); // creates custom event called: itemAddedToCart
     }
 
     renderProductDetails() {
