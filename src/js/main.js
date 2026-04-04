@@ -8,7 +8,7 @@ const dataSource = new ExternalServices();
 const element = document.querySelector(".product-list");
 const listing = new ProductList("tents", dataSource, element);
 
-// adding feature search
+
 async function init() {
   await listing.init();
 
@@ -16,7 +16,7 @@ async function init() {
   if (navbar) {
     const breadcrumb = document.createElement("div");
     breadcrumb.className = "breadcrumb";
-    // Capitalize the category name
+    
     const categoryName =
       listing.category.charAt(0).toUpperCase() + listing.category.slice(1);
     breadcrumb.textContent = `${categoryName} (${listing.products.length} items)`;
@@ -36,4 +36,39 @@ async function init() {
   });
 }
 
+const subscribeBtn = document.getElementById("subscribeBtn");
+const modal = document.getElementById("newsletterModal");
+const closeBtn = document.querySelector(".close-btn");
+const form = document.getElementById("newsletterForm");
+const successMessage = document.getElementById("successMessage");
+
+
+subscribeBtn.addEventListener("click", () => {
+  modal.style.display = "block";
+});
+
+
+closeBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("emailInput").value;
+
+  
+  console.log("Email submitted:", email);
+
+  form.style.display = "none";
+  successMessage.style.display = "block";
+});
 init();
